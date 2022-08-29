@@ -4,9 +4,6 @@ function Header() {
 	const [currencyLeft, setCurrencyLeft] = useState({ value: 1, currency: "USD", focus: true });
 	const [currencyRight, setCurrencyRight] = useState({ value: 100, currency: "UAH", focus: false });
 
-	console.log("LEFT => ", currencyLeft.focus);
-	console.log("RIGHT => ", currencyRight.focus);
-
 	useEffect(() => {
 		if (currencyLeft.focus) convertRightValue(currencyLeft.value);
 		if (currencyRight.focus) convertLeftValue(currencyRight.value);
