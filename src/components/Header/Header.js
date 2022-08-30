@@ -124,24 +124,26 @@ function Header() {
 
 	return (
 		<div className={styles.container}>
-			<input type="number" value={currencyLeft.value} onChange={changeLeftValue} />
-			<select value={currencyLeft.currency} onChange={changeLeftCurrency}>
+			<input className={styles.inputs} type="number" value={currencyLeft.value} onChange={changeLeftValue} />
+			<select className={styles.selects} value={currencyLeft.currency} onChange={changeLeftCurrency}>
 				<option value="UAH">UAH</option>
 				<option value="USD">USD</option>
 				<option value="EUR">EUR</option>
 			</select>
 
-			{(currencyLeft.focus || (!currencyLeft.focus && !currencyRight.focus)) && <span>&#10230;</span>}
-			{currencyRight.focus && <span>&#10229;</span>}
+			{(currencyLeft.focus || (!currencyLeft.focus && !currencyRight.focus)) && <span className={styles.arrow}>&#10230;</span>}
+			{currencyRight.focus && <span className={styles.arrow}>&#10229;</span>}
 
-			<input type="number" value={currencyRight.value} onChange={changeRightValue} />
-			<select value={currencyRight.currency} onChange={changeRightCurrency}>
+			<input className={styles.inputs} type="number" value={currencyRight.value} onChange={changeRightValue} />
+			<select className={styles.selects} value={currencyRight.currency} onChange={changeRightCurrency}>
 				<option value="UAH">UAH</option>
 				<option value="USD">USD</option>
 				<option value="EUR">EUR</option>
 			</select>
 
-			<div>&#8635; {timeUpdate}</div>
+			<div className={styles.lastUpdate} title="Last update">
+				&#8635; {timeUpdate}
+			</div>
 		</div>
 	);
 }
