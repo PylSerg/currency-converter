@@ -1,8 +1,20 @@
 import { useState, useEffect } from "react";
+import { USD, EUR, updateQuotes } from "../../js/quotes";
 
 function Header() {
-	const [currencyLeft, setCurrencyLeft] = useState({ value: 1, currency: "USD", focus: true });
-	const [currencyRight, setCurrencyRight] = useState({ value: 100, currency: "UAH", focus: false });
+	const [currencyLeft, setCurrencyLeft] = useState({ value: "", currency: "USD", focus: false });
+	const [currencyRight, setCurrencyRight] = useState({ value: "", currency: "UAH", focus: false });
+	const [updateMessage, setUpdateMessage] = useState();
+
+	useEffect(() => {
+		updateQuotes();
+		messageUpdate();
+	}, []);
+
+	setInterval(() => {
+		updateQuotes();
+		messageUpdate();
+	}, 60000);
 
 	useEffect(() => {
 		if (currencyLeft.focus) convertRightValue(currencyLeft.value);
@@ -11,32 +23,32 @@ function Header() {
 
 	function convertRightValue(currValue) {
 		if (currencyLeft.currency === "USD" && currencyRight.currency === "UAH") {
-			setCurrencyRight({ ...currencyRight, value: (currValue * 40).toFixed(2), focus: false });
+			setCurrencyRight({ ...currencyRight, value: (currValue * USD).toFixed(2), focus: false });
 			return;
 		}
 
 		if (currencyLeft.currency === "EUR" && currencyRight.currency === "UAH") {
-			setCurrencyRight({ ...currencyRight, value: (currValue * 42).toFixed(2), focus: false });
+			setCurrencyRight({ ...currencyRight, value: (currValue * EUR).toFixed(2), focus: false });
 			return;
 		}
 
 		if (currencyLeft.currency === "UAH" && currencyRight.currency === "USD") {
-			setCurrencyRight({ ...currencyRight, value: (currValue / 40).toFixed(2), focus: false });
+			setCurrencyRight({ ...currencyRight, value: (currValue / USD).toFixed(2), focus: false });
 			return;
 		}
 
 		if (currencyLeft.currency === "UAH" && currencyRight.currency === "EUR") {
-			setCurrencyRight({ ...currencyRight, value: (currValue / 42).toFixed(2), focus: false });
+			setCurrencyRight({ ...currencyRight, value: (currValue / EUR).toFixed(2), focus: false });
 			return;
 		}
 
 		if (currencyLeft.currency === "USD" && currencyRight.currency === "EUR") {
-			setCurrencyRight({ ...currencyRight, value: ((currValue * 40) / 42).toFixed(2), focus: false });
+			setCurrencyRight({ ...currencyRight, value: ((currValue * USD) / EUR).toFixed(2), focus: false });
 			return;
 		}
 
 		if (currencyLeft.currency === "EUR" && currencyRight.currency === "USD") {
-			setCurrencyRight({ ...currencyRight, value: ((currValue * 42) / 40).toFixed(2), focus: false });
+			setCurrencyRight({ ...currencyRight, value: ((currValue * EUR) / USD).toFixed(2), focus: false });
 			return;
 		}
 
@@ -45,32 +57,32 @@ function Header() {
 
 	function convertLeftValue(currValue) {
 		if (currencyLeft.currency === "USD" && currencyRight.currency === "UAH") {
-			setCurrencyLeft({ ...currencyLeft, value: (currValue / 40).toFixed(2), focus: false });
+			setCurrencyLeft({ ...currencyLeft, value: (currValue / USD).toFixed(2), focus: false });
 			return;
 		}
 
 		if (currencyLeft.currency === "EUR" && currencyRight.currency === "UAH") {
-			setCurrencyLeft({ ...currencyLeft, value: (currValue / 42).toFixed(2), focus: false });
+			setCurrencyLeft({ ...currencyLeft, value: (currValue / EUR).toFixed(2), focus: false });
 			return;
 		}
 
 		if (currencyLeft.currency === "UAH" && currencyRight.currency === "USD") {
-			setCurrencyLeft({ ...currencyLeft, value: (currValue * 40).toFixed(2), focus: false });
+			setCurrencyLeft({ ...currencyLeft, value: (currValue * USD).toFixed(2), focus: false });
 			return;
 		}
 
 		if (currencyLeft.currency === "UAH" && currencyRight.currency === "EUR") {
-			setCurrencyLeft({ ...currencyLeft, value: (currValue * 42).toFixed(2), focus: false });
+			setCurrencyLeft({ ...currencyLeft, value: (currValue * EUR).toFixed(2), focus: false });
 			return;
 		}
 
 		if (currencyLeft.currency === "USD" && currencyRight.currency === "EUR") {
-			setCurrencyLeft({ ...currencyLeft, value: ((currValue / 40) * 42).toFixed(2), focus: false });
+			setCurrencyLeft({ ...currencyLeft, value: ((currValue / USD) * EUR).toFixed(2), focus: false });
 			return;
 		}
 
 		if (currencyLeft.currency === "EUR" && currencyRight.currency === "USD") {
-			setCurrencyLeft({ ...currencyLeft, value: ((currValue / 42) * 40).toFixed(2), focus: false });
+			setCurrencyLeft({ ...currencyLeft, value: ((currValue / EUR) * USD).toFixed(2), focus: false });
 			return;
 		}
 
@@ -95,6 +107,20 @@ function Header() {
 		setCurrencyRight({ ...currencyRight, currency: e.currentTarget.value });
 	}
 
+	function messageUpdate() {
+		let date = new Date();
+
+		const minutes = mnts => {
+			if (mnts < 10) {
+				return "0" + mnts;
+			}
+
+			return mnts;
+		};
+
+		setUpdateMessage(`Last update of quotes was today at ${date.getHours()}:${minutes(date.getMinutes())}`);
+	}
+
 	return (
 		<div>
 			<input type="number" value={currencyLeft.value} onChange={changeLeftValue} />
@@ -103,13 +129,17 @@ function Header() {
 				<option value="USD">USD</option>
 				<option value="EUR">EUR</option>
 			</select>
-			=
+
+			{(currencyLeft.focus || (!currencyLeft.focus && !currencyRight.focus)) && <span>&#8658;</span>}
+			{currencyRight.focus && <span>&#8656;</span>}
+
 			<input type="number" value={currencyRight.value} onChange={changeRightValue} />
 			<select value={currencyRight.currency} onChange={changeRightCurrency}>
 				<option value="UAH">UAH</option>
 				<option value="USD">USD</option>
 				<option value="EUR">EUR</option>
 			</select>
+			<div>{updateMessage}</div>
 		</div>
 	);
 }
