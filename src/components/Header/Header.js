@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { USD, EUR, updateQuotes } from "../../js/quotes";
+import styles from "./Header.module.css";
 
 function Header() {
 	const [currencyLeft, setCurrencyLeft] = useState({ value: "", currency: "USD", focus: false });
@@ -122,23 +123,26 @@ function Header() {
 	}
 
 	return (
-		<div>
-			<input type="number" value={currencyLeft.value} onChange={changeLeftValue} />
-			<select value={currencyLeft.currency} onChange={changeLeftCurrency}>
-				<option value="UAH">UAH</option>
-				<option value="USD">USD</option>
-				<option value="EUR">EUR</option>
-			</select>
+		<div className={styles.container}>
+			<div className={styles.convertBlock}>
+				<input type="number" value={currencyLeft.value} onChange={changeLeftValue} />
+				<select value={currencyLeft.currency} onChange={changeLeftCurrency}>
+					<option value="UAH">UAH</option>
+					<option value="USD">USD</option>
+					<option value="EUR">EUR</option>
+				</select>
 
-			{(currencyLeft.focus || (!currencyLeft.focus && !currencyRight.focus)) && <span>&#8658;</span>}
-			{currencyRight.focus && <span>&#8656;</span>}
+				{(currencyLeft.focus || (!currencyLeft.focus && !currencyRight.focus)) && <span>&#8658;</span>}
+				{currencyRight.focus && <span>&#8656;</span>}
 
-			<input type="number" value={currencyRight.value} onChange={changeRightValue} />
-			<select value={currencyRight.currency} onChange={changeRightCurrency}>
-				<option value="UAH">UAH</option>
-				<option value="USD">USD</option>
-				<option value="EUR">EUR</option>
-			</select>
+				<input type="number" value={currencyRight.value} onChange={changeRightValue} />
+				<select value={currencyRight.currency} onChange={changeRightCurrency}>
+					<option value="UAH">UAH</option>
+					<option value="USD">USD</option>
+					<option value="EUR">EUR</option>
+				</select>
+			</div>
+
 			<div>{updateMessage}</div>
 		</div>
 	);
