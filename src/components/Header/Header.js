@@ -9,12 +9,12 @@ function Header() {
 
 	useEffect(() => {
 		updateQuotes();
-		messageUpdate();
+		refreshTimeUpdate();
 	}, []);
 
 	setInterval(() => {
 		updateQuotes();
-		messageUpdate();
+		refreshTimeUpdate();
 	}, 60000);
 
 	useEffect(() => {
@@ -113,7 +113,7 @@ function Header() {
 		setCurrencyRight({ ...currencyRight, focus: !currencyRight.focus });
 	}
 
-	function messageUpdate() {
+	function refreshTimeUpdate() {
 		let date = new Date();
 
 		const minutes = mnts => {
