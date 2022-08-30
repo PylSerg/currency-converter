@@ -108,6 +108,11 @@ function Header() {
 		setCurrencyRight({ ...currencyRight, currency: e.currentTarget.value });
 	}
 
+	function changeFocus() {
+		setCurrencyLeft({ ...currencyLeft, focus: !currencyLeft.focus });
+		setCurrencyRight({ ...currencyRight, focus: !currencyRight.focus });
+	}
+
 	function messageUpdate() {
 		let date = new Date();
 
@@ -131,8 +136,16 @@ function Header() {
 				<option value="EUR">EUR</option>
 			</select>
 
-			{(currencyLeft.focus || (!currencyLeft.focus && !currencyRight.focus)) && <span className={styles.arrow}>&#10230;</span>}
-			{currencyRight.focus && <span className={styles.arrow}>&#10229;</span>}
+			{(currencyLeft.focus || (!currencyLeft.focus && !currencyRight.focus)) && (
+				<span className={styles.arrow} onClick={changeFocus}>
+					&#10230;
+				</span>
+			)}
+			{currencyRight.focus && (
+				<span className={styles.arrow} onClick={changeFocus}>
+					&#10229;
+				</span>
+			)}
 
 			<input className={styles.inputs} type="number" value={currencyRight.value} onChange={changeRightValue} />
 			<select className={styles.selects} value={currencyRight.currency} onChange={changeRightCurrency}>
