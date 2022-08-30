@@ -5,7 +5,7 @@ import styles from "./Header.module.css";
 function Header() {
 	const [currencyLeft, setCurrencyLeft] = useState({ value: "", currency: "USD", focus: false });
 	const [currencyRight, setCurrencyRight] = useState({ value: "", currency: "UAH", focus: false });
-	const [updateMessage, setUpdateMessage] = useState();
+	const [timeUpdate, setTimeUpdate] = useState();
 
 	useEffect(() => {
 		updateQuotes();
@@ -119,31 +119,29 @@ function Header() {
 			return mnts;
 		};
 
-		setUpdateMessage(`Last update of quotes was today at ${date.getHours()}:${minutes(date.getMinutes())}`);
+		setTimeUpdate(`${date.getHours()}:${minutes(date.getMinutes())}`);
 	}
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.convertBlock}>
-				<input type="number" value={currencyLeft.value} onChange={changeLeftValue} />
-				<select value={currencyLeft.currency} onChange={changeLeftCurrency}>
-					<option value="UAH">UAH</option>
-					<option value="USD">USD</option>
-					<option value="EUR">EUR</option>
-				</select>
+			<input type="number" value={currencyLeft.value} onChange={changeLeftValue} />
+			<select value={currencyLeft.currency} onChange={changeLeftCurrency}>
+				<option value="UAH">UAH</option>
+				<option value="USD">USD</option>
+				<option value="EUR">EUR</option>
+			</select>
 
-				{(currencyLeft.focus || (!currencyLeft.focus && !currencyRight.focus)) && <span>&#8658;</span>}
-				{currencyRight.focus && <span>&#8656;</span>}
+			{(currencyLeft.focus || (!currencyLeft.focus && !currencyRight.focus)) && <span>&#10230;</span>}
+			{currencyRight.focus && <span>&#10229;</span>}
 
-				<input type="number" value={currencyRight.value} onChange={changeRightValue} />
-				<select value={currencyRight.currency} onChange={changeRightCurrency}>
-					<option value="UAH">UAH</option>
-					<option value="USD">USD</option>
-					<option value="EUR">EUR</option>
-				</select>
-			</div>
+			<input type="number" value={currencyRight.value} onChange={changeRightValue} />
+			<select value={currencyRight.currency} onChange={changeRightCurrency}>
+				<option value="UAH">UAH</option>
+				<option value="USD">USD</option>
+				<option value="EUR">EUR</option>
+			</select>
 
-			<div>{updateMessage}</div>
+			<div>&#8635; {timeUpdate}</div>
 		</div>
 	);
 }
