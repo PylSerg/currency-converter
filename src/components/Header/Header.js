@@ -3,13 +3,28 @@ import styles from "./Header.module.css";
 
 function Header() {
 	return (
-		<div className={styles.container}>
-			USD: {USD} UAH <br />
-			EUR: {EUR} UAH <br />
-			GBP: {GBP} UAH <br />
-			EGP: {EGP} UAH <br />
-			XAU: {XAU} UAH <br />
-		</div>
+		<ul className={styles.container}>
+			<li className={styles.item}>
+				<span className={styles.currency}> USD:</span>
+				<span className={styles.quotation}> {USD} UAH </span>
+			</li>
+			<li className={styles.item}>
+				<span className={styles.currency}> EUR:</span>
+				<span className={styles.quotation}> {EUR} UAH </span>
+			</li>
+			<li className={styles.item}>
+				<span className={styles.currency}> GBP:</span>
+				<span className={styles.quotation}> {GBP} UAH </span>
+			</li>
+			<li className={styles.item}>
+				<span className={styles.currency}> EGP:</span>
+				<span className={styles.quotation}> {EGP} UAH </span>
+			</li>
+			<li className={styles.item}>
+				<span className={styles.currency}> XAU:</span>
+				<span className={styles.quotation}> {XAU} UAH </span>
+			</li>
+		</ul>
 	);
 }
 
