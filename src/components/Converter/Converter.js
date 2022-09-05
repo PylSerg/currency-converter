@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./Converter.module.css";
 
 function Converter({ currencyLeft, currencyRight, timeUpdate, changeLeftValue, changeLeftCurrency, changeRightValue, changeRightCurrency, changeFocus }) {
