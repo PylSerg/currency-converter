@@ -9,11 +9,6 @@ function App() {
 	const [currencyRight, setCurrencyRight] = useState({ value: "", currency: "UAH", focus: false });
 	const [timeUpdate, setTimeUpdate] = useState();
 
-	useEffect(() => {
-		updateQuotes();
-		refreshTimeUpdate();
-	}, []);
-
 	setInterval(() => {
 		updateQuotes();
 		refreshTimeUpdate();
@@ -23,6 +18,14 @@ function App() {
 		if (currencyLeft.focus) convertRightValue(currencyLeft.value);
 		if (currencyRight.focus) convertLeftValue(currencyRight.value);
 	}, [currencyLeft.currency, currencyRight.currency]);
+
+	if (USD === 0) {
+		setTimeout(() => {
+			updateQuotes();
+			refreshTimeUpdate();
+			convertRightValue(currencyLeft.value);
+		}, 100);
+	}
 
 	function convertRightValue(currValue) {
 		if (currencyLeft.currency === "USD" && currencyRight.currency === "UAH") {
@@ -128,6 +131,7 @@ function App() {
 
 		setTimeUpdate(`${date.getHours()}:${minutes(date.getMinutes())}`);
 	}
+
 	return (
 		<>
 			<Header />
