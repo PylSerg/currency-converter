@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { USD, EUR, updateQuotes } from "../src/js/quotes";
+import { USD, EUR, updateQuotes } from "./js/quotes";
 import Header from "./components/Header/Header";
-import Converter from "../src/components/Converter";
+import Converter from "./components/Converter";
+import styles from "./styles.css";
 
 function App() {
 	const [currencyLeft, setCurrencyLeft] = useState({ value: "", currency: "USD", focus: false });
