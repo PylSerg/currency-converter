@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
-import { USD, EUR } from "../../js/quotes";
+import { USD, EUR, GBP, EGP, XAU } from "../../js/quotes";
 import styles from "./Header.module.css";
 
 function Header() {
 	return (
 		<div className={styles.container}>
 			USD: {USD} UAH <br />
-			EUR: {EUR} UAH
+			EUR: {EUR} UAH <br />
+			GBP: {GBP} UAH <br />
+			EGP: {EGP} UAH <br />
+			XAU: {XAU} UAH <br />
 		</div>
 	);
 }
