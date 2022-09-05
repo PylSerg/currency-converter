@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { USD, EUR, GBP, EGP, XAU } from "../../js/quotes";
 import styles from "./Header.module.css";
 
