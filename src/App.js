@@ -5,7 +5,7 @@ import Converter from "./components/Converter";
 import styles from "./styles.css";
 
 function App() {
-	const [currencyLeft, setCurrencyLeft] = useState({ value: "", currency: "USD", focus: false });
+	const [currencyLeft, setCurrencyLeft] = useState({ value: "", currency: "USD", focus: true });
 	const [currencyRight, setCurrencyRight] = useState({ value: "", currency: "UAH", focus: false });
 	const [timeUpdate, setTimeUpdate] = useState();
 
@@ -19,7 +19,7 @@ function App() {
 		if (currencyRight.focus) convertLeftValue(currencyRight.value);
 	}, [currencyLeft.currency, currencyRight.currency]);
 
-	if (USD === 0) {
+	if (USD === 0 || EUR === 0) {
 		setTimeout(() => {
 			updateQuotes();
 			refreshTimeUpdate();
